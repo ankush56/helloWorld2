@@ -42,6 +42,12 @@ steps:
     targetType: 'inline' # Optional. Options: filePath, inline
     script: 'echo Staging drop DIR is- && echo $(build.artifactstagingdirectory)'
 
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/CoverageResults/Cobertura.xml'
+
 #Publish Artifact    
 - task: PublishPipelineArtifact@1
   displayName: 'Publish built artifact : drop'
