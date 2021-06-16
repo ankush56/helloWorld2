@@ -15,7 +15,7 @@ steps:
   inputs:
     targetType: 'filePath' # Optional. Options: filePath, inline
     filePath: 'sayhello.sh'
-    script: 'echo Hello Superman'
+    #script: 'echo Hello Superman'
 - task: Maven@3
   displayName: 'Maven Build'
   inputs:
