@@ -14,10 +14,7 @@ pool:
 
 #Bash script Test
 steps:
-- task: Bash@3
-  displayName: 'Bash Hello'
-  targetType: 'inline'
-  script: 'echo build number is: $(Build.BuildNumber)' # outputs customized build number like project_def_master_20200828.1
+- script: 'echo build number is: $(Build.BuildNumber)' # outputs customized build number like project_def_master_20200828.1
 
 - task: Bash@3
   displayName: 'Bash Hello'
