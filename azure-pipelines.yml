@@ -29,7 +29,7 @@ steps:
     goals: 'package'
 
 - task: PublishPipelineArtifact@1
-  displayName: 'Publish built artifact'
+  displayName: 'Publish built artifact : drop'
   inputs:
-    targetPath: $(System.DefaultWorkingDirectory)/WebApp
+    PathtoPublish: '$(build.artifactstagingdirectory)'
     artifactName: helloWorldApp
