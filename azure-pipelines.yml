@@ -46,7 +46,7 @@ steps:
   displayName: 'Publish code coverage'
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/CoverageResults/Cobertura.xml'
+    summaryFileLocation: '**/surefire-reports/TEST-*.xml'
 
 #Publish Artifact    
 - task: PublishPipelineArtifact@1
