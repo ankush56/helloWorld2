@@ -34,7 +34,7 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    goals: 'deploy'
 
 - task: Bash@3
   displayName: 'ArtifactSTagingDir'
@@ -42,11 +42,12 @@ steps:
     targetType: 'inline' # Optional. Options: filePath, inline
     script: 'echo Staging drop DIR is- && echo $(build.artifactstagingdirectory)'
 
+#If using Cobertura
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage'
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: '**/surefire-reports/TEST-*.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)/CoverageResults/Cobertura.xml'
 
 #Publish Artifact    
 - task: PublishPipelineArtifact@1
