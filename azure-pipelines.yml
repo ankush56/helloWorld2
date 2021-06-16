@@ -28,6 +28,12 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
+- task: Bash@3
+  displayName: 'ArtifactSTagingDir'
+  inputs:
+    targetType: 'inline' # Optional. Options: filePath, inline
+    filePath: 'echo Staging drop DIR is- && echo $(build.artifactstagingdirectory)'
+    #script: 'echo Hello Superman'
 - task: PublishPipelineArtifact@1
   displayName: 'Publish built artifact : drop'
   inputs:
