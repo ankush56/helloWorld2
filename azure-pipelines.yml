@@ -32,8 +32,7 @@ steps:
   displayName: 'ArtifactSTagingDir'
   inputs:
     targetType: 'inline' # Optional. Options: filePath, inline
-    filePath: 'echo Staging drop DIR is- && echo $(build.artifactstagingdirectory)'
-    #script: 'echo Hello Superman'
+    script: 'echo Staging drop DIR is- && echo $(build.artifactstagingdirectory)'
 - task: PublishPipelineArtifact@1
   displayName: 'Publish built artifact : drop'
   inputs:
