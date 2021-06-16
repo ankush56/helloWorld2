@@ -3,19 +3,27 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
+#Custom Set Build unique build name and number
+name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
 trigger:
 - main
 
 pool:
   vmImage: ubuntu-latest
 
+#Bash script Test
 steps:
+- script: echo '$(Build.BuildNumber)' # outputs customized build number like project_def_master_20200828.1
+
 - task: Bash@3
   displayName: 'Bash Hello'
   inputs:
     targetType: 'filePath' # Optional. Options: filePath, inline
     filePath: 'sayhello.sh'
     #script: 'echo Hello Superman'
+
+#Build Artifact   
 - task: Maven@3
   displayName: 'Maven Build'
   inputs:
@@ -33,8 +41,22 @@ steps:
   inputs:
     targetType: 'inline' # Optional. Options: filePath, inline
     script: 'echo Staging drop DIR is- && echo $(build.artifactstagingdirectory)'
+
+#Publish Artifact    
 - task: PublishPipelineArtifact@1
   displayName: 'Publish built artifact : drop'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
     artifactName: helloWorldApp
+
+#Download ArtifactbuildType: specify which build artifacts will be downloaded: current (the default value) or from a specific build.
+#downloadType: choose whether to download a single artifact or all artifacts of a specific build.
+#artifactName: the name of the artifact that will be downloaded.
+#downloadPath: path on the agent machine where the artifacts will be downloaded.
+- script: echo 'Downloading Artifacts'
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'helloWorldApp'
+    downloadPath: '$(System.ArtifactsDirectory)'
